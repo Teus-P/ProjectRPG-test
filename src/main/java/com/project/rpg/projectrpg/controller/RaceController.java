@@ -1,7 +1,7 @@
 package com.project.rpg.projectrpg.controller;
 
-import com.project.rpg.projectrpg.entity.Race;
-import com.project.rpg.projectrpg.service.RaceService;
+import com.project.rpg.projectrpg.entity.RaceEntity;
+import com.project.rpg.projectrpg.service.race.RaceService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,8 +21,8 @@ public class RaceController {
 
     @GetMapping("/list")
     public String listRaces(Model model){
-        List<Race> races = raceService.findAll();
-        model.addAttribute("races", races);
+        List<RaceEntity> raceEntities = raceService.findAll();
+        model.addAttribute("races", raceEntities);
 
         return "races/list-races";
     }

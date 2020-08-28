@@ -1,6 +1,6 @@
-package com.project.rpg.projectrpg.dao;
+package com.project.rpg.projectrpg.dao.gender;
 
-import com.project.rpg.projectrpg.entity.Race;
+import com.project.rpg.projectrpg.entity.GenderEntity;
 import org.hibernate.Session;
 import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,23 +11,22 @@ import javax.persistence.EntityManager;
 import java.util.List;
 
 @Repository
-public class RaceDAOImpl implements RaceDAO{
+public class GenderDAOImpl implements GenderDAO{
 
-    private EntityManager entityManager;
+    EntityManager entityManager;
 
     @Value("${properties.language}")
     private String language;
 
     @Autowired
-    public RaceDAOImpl(EntityManager entityManager) {
+    public GenderDAOImpl(EntityManager entityManager) {
         this.entityManager = entityManager;
     }
 
     @Override
-    public List<Race> findAll() {
-
+    public List<GenderEntity> findAll() {
         Session session = entityManager.unwrap(Session.class);
-        Query<Race> query = session.createNativeQuery("SELECT race.id, race.name, JSON_EXTRACT(race.translation, " + language + ") AS translation FROM race", Race.class);
+        Query<GenderEntity> query = session.createNativeQuery("SELECT gender.id, gender.name, JSON_EXTRACT(gender.translation, " + language + ") AS translation FROM gender", GenderEntity.class);
 
         return query.getResultList();
     }

@@ -1,10 +1,9 @@
-package com.project.rpg.projectrpg.service;
+package com.project.rpg.projectrpg.service.race;
 
-import com.project.rpg.projectrpg.dao.RaceDAO;
-import com.project.rpg.projectrpg.dao.RaceRepository;
-import com.project.rpg.projectrpg.entity.Race;
+import com.project.rpg.projectrpg.dao.race.RaceDAO;
+import com.project.rpg.projectrpg.dao.race.RaceRepository;
+import com.project.rpg.projectrpg.entity.RaceEntity;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -12,13 +11,11 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class RaceServiceImpl implements RaceService{
+public class RaceServiceImpl implements RaceService {
+
 
     private RaceRepository raceRepository;
     private RaceDAO raceDAO;
-
-    @Value("${properties.language}")
-    private String language;
 
     @Autowired
     public RaceServiceImpl(RaceRepository raceRepository, RaceDAO raceDAO){
@@ -28,16 +25,15 @@ public class RaceServiceImpl implements RaceService{
 
     @Override
     @Transactional
-    public List<Race> findAll() {
-//        return raceRepository.findAll();
+    public List<RaceEntity> findAll() {
         return raceDAO.findAll();
     }
 
     @Override
-    public Race findById(int id) {
-        Optional<Race> result = raceRepository.findById(id);
+    public RaceEntity findById(int id) {
+        Optional<RaceEntity> result = raceRepository.findById(id);
 
-        Race race;
+        RaceEntity race;
 
         if(result.isPresent()){
             race = result.get();
@@ -50,7 +46,7 @@ public class RaceServiceImpl implements RaceService{
     }
 
     @Override
-    public void save(Race race) {
+    public void save(RaceEntity race) {
         raceRepository.save(race);
     }
 
