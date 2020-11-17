@@ -7,7 +7,6 @@ import org.hibernate.FlushMode;
 import org.hibernate.Session;
 import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
@@ -18,27 +17,26 @@ public class RaceDAOImpl extends DaoTemplate implements RaceDAO {
 
     private final EntityManager entityManager;
 
-    @Value("${properties.language}")
-    private String language;
-
     @Autowired
     public RaceDAOImpl(EntityManager entityManager) {
         this.entityManager = entityManager;
     }
 
     @Override
-    public List<RaceEntity> findAll() {
+    public List<RaceEntity> findAll(String language) {
 
         Session session = entityManager.unwrap(Session.class);
         session.setHibernateFlushMode(FlushMode.MANUAL);
         session.clear();
 
+        String lang = "$." + language.toUpperCase();
+
         Query<RaceEntity> query = session.createNativeQuery(
-                "SELECT race.id, race.name, JSON_EXTRACT(race.translation, " + language + ") AS translation " +
+                "SELECT race.id, race.name, JSON_EXTRACT(race.translation, \'" + lang + "\') AS translation " +
                         "FROM race", RaceEntity.class);
 
         List<? extends EntityTemplate> raceEntities = query.getResultList();
-        raceEntities = checkTranslation(raceEntities);
+        raceEntities = checkTranslation(raceEntities, language);
 
         return (List<RaceEntity>)raceEntities;
     }

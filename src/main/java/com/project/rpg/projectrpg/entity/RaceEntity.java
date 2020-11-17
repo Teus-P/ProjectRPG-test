@@ -32,16 +32,6 @@ public class RaceEntity extends EntityTemplate{
         this.name = name;
     }
 
-//    @Basic
-//    @Column(name = "translation")
-//    public String getTranslation() {
-//        return translation;
-//    }
-//
-//    public void setTranslation(String translation) {
-//        this.translation = translation;
-//    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

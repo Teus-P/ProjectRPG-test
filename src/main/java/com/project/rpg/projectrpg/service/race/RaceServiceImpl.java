@@ -25,8 +25,8 @@ public class RaceServiceImpl implements RaceService {
 
     @Override
     @Transactional
-    public List<RaceEntity> findAll() {
-        return raceDAO.findAll();
+    public List<RaceEntity> findAll(String lang) {
+        return raceDAO.findAll(lang);
     }
 
     @Override

@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface RaceService {
 
-    List<RaceEntity> findAll();
+    List<RaceEntity> findAll(String lang);
 
     RaceEntity findById(int id);
 

@@ -8,5 +8,5 @@ import java.util.List;
 public interface RaceDAO {
 
     @Transactional
-    List<RaceEntity> findAll();
+    List<RaceEntity> findAll(String lang);
 }
